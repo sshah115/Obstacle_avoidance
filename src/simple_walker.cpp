@@ -36,38 +36,32 @@ class Turtlewalk : public rclcpp::Node {
   }
 
  private:
-    /**
-     * @brief callback function to get data from
-     * scan result and publish command accordingly.
-     * @param result 
-     */
+  /**
+   * @brief callback function to get data from
+   * scan result and publish command accordingly.
+   * @param result
+   */
   void scan_callback(const SCAN &result) {
     if (result.header.stamp.sec == 0) {
-
       return;
-
     }
     auto scanResult = result.ranges;
     for (int i = 330; i < 330 + 60; i++) {
-
       if (scanResult[i % 360] < 0.8) {
-
         turtle_move(0.0, 0.2);
 
       } else {
-
         turtle_move(0.2, 0.0);
       }
     }
   }
-    /**
-     * @brief Moving the turtlebot in desired direction as
-     * per scan data
-     * @param xMove 
-     * @param zMove 
-     */
+  /**
+   * @brief Moving the turtlebot in desired direction as
+   * per scan data
+   * @param xMove
+   * @param zMove
+   */
   void turtle_move(float xMove, float zMove) {
-
     auto moveDir = TWIST();
     moveDir.linear.x = xMove;
     moveDir.angular.z = -zMove;
@@ -79,16 +73,14 @@ class Turtlewalk : public rclcpp::Node {
 };
 /**
  * @brief main function.
- * 
- * @param argc 
- * @param argv 
- * @return int 
+ *
+ * @param argc
+ * @param argv
+ * @return int
  */
 int main(int argc, char **argv) {
-
   rclcpp::init(argc, argv);
   rclcpp::spin(std::make_shared<Turtlewalk>());
   rclcpp::shutdown();
   return 0;
-
 }
