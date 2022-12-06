@@ -22,6 +22,10 @@ using namespace std::chrono_literals;
 using SCAN = sensor_msgs::msg::LaserScan;
 using TWIST = geometry_msgs::msg::Twist;
 
+/**
+ * @brief Class definition to make turtlebot walk while
+ * avoiding obstacles in vicinity.
+ */
 class Turtlewalk : public rclcpp::Node {
  public:
   Turtlewalk() : Node("walker") {
@@ -32,6 +36,11 @@ class Turtlewalk : public rclcpp::Node {
   }
 
  private:
+    /**
+     * @brief callback function to get data from
+     * scan result and publish command accordingly.
+     * @param result 
+     */
   void scan_callback(const SCAN &result) {
     if (result.header.stamp.sec == 0) {
 
@@ -51,7 +60,12 @@ class Turtlewalk : public rclcpp::Node {
       }
     }
   }
-
+    /**
+     * @brief Moving the turtlebot in desired direction as
+     * per scan data
+     * @param xMove 
+     * @param zMove 
+     */
   void turtle_move(float xMove, float zMove) {
 
     auto moveDir = TWIST();
@@ -63,7 +77,13 @@ class Turtlewalk : public rclcpp::Node {
   rclcpp::Subscription<SCAN>::SharedPtr scan_data_sub;
   rclcpp::Publisher<TWIST>::SharedPtr twist_vel_pub;
 };
-
+/**
+ * @brief main function.
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
 int main(int argc, char **argv) {
 
   rclcpp::init(argc, argv);
