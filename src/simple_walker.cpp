@@ -12,6 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/**
+ * @file simple_walker.cpp
+ * @author Shail Shah (sshah115@umd.edu)
+ * @brief Walker code for Tutlebot movement and obstacle avoidance
+ * @version 0.1
+ * @date 2022-12-05
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
 #include <geometry_msgs/msg/twist.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/laser_scan.hpp>
